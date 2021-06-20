@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+* {
+    box-sizing: border-box;
+  }
+body{
+    margin: auto;
+    width: 960px;
+
+}
+.all-page{
+    display: grid;
+    grid-template-rows: 100px 1fr 50px;
+    gap: 20px;
+}
+img{
+    width: 100%;
+}
+header {
+    background: #EBA83A;
+    color: #BB371A;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+   }
+header h1{
+    font-family: 'Staatliches', cursive;
+    font-size: 50px;
+    font-weight: 400;
+}
+header a{
+    text-decoration: none;
+    padding: 10px 20px;
+    color: #BB371A;
+    font-family: 'Staatliches', cursive;
+    font-size: 25px;
+    transition: all 350ms;
+    position: relative;
+}
+header nav a:hover {
+    background: #BB371A;
+    color: #EBA83A;
+  }
+  
+  header nav a:hover::after {
+    background: #BB371A;
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: '';
+  }
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Staatliches', cursive;
+    background: #EBA83A;
+    color: #BB371A;
+    font-size: 20px;
+}
+.image-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: #D5DBB3;
+    gap: 10px;
+    padding-bottom: 10px ;
+}
+.image-section img{
+    height: 250px;
+  object-fit: cover;
+}
+.result{
+    height: 250;
+    display: flex;
+    background: #D5DBB3;
+}
+.result ul{
+    list-style: circle;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #BB371A;
+    padding-left: 10px;
+    font-size: 25px;
+}
+button{
+    background: #BB371A;
+    color: #EBA83A;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
