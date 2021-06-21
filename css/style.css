@@ -74,8 +74,9 @@ footer{
   object-fit: cover;
 }
 .result{
-    height: 250;
+    /* height: 250px; */
     display: flex;
+    /* grid-template-rows: 1fr ; */
     background: #D5DBB3;
 }
 .result ul{
@@ -83,7 +84,7 @@ footer{
     font-family: 'Josefin Sans', sans-serif;
     color: #BB371A;
     padding-left: 10px;
-    font-size: 25px;
+    font-size: 18px;
 }
 button{
     background: #BB371A;
