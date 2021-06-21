@@ -136,7 +136,7 @@ function chartRender(){
 
     let ctx = document.getElementById( 'myChart' ).getContext( '2d' );
   new Chart( ctx, {
-    type: 'radar',
+    type: 'bar',
     data: {
       labels: names,
       datasets: [
