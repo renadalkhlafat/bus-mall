@@ -30,7 +30,7 @@ function randomNumber(min, max) {
 //----------------------productName constructor----------------
 function productName(name, path) {
     this.prodName = name;
-    this.clicks = 0;
+    this.clickNumber = 0;
     this.views = 0;
     this.imgSrc = `./img/${path}`;
     productName.allProducts.push(this)
@@ -45,14 +45,25 @@ for (let j = 0; j < imgArray.length; j++) {
 //-------------------image render function------------------------
 function imgRenader() {
     let imgIndex1 = randomNumber(0, imgArray.length - 1);
+    if (imgIndex1 == firstImageIndex) {
+        imgIndex1 = randomNumber(0, imgArray.length - 1);
+    }
     productName.allProducts[imgIndex1].views++;
-    let imgIndex2 = randomNumber(0, imgArray.length - 1);
 
+    let imgIndex2 = randomNumber(0, imgArray.length - 1);
+    if (imgIndex2 == secondImageIndex) {
+        imgIndex1 = randomNumber(0, imgArray.length - 1);
+    }
     while (imgIndex1 == imgIndex2) {
-        imgIndex2 = randomNumber(0, imgArray.length - 1);
+
+        imgIndex1 = randomNumber(0, imgArray.length - 1);
     }
     productName.allProducts[imgIndex2].views++;
+
     let imgIndex3 = randomNumber(0, imgArray.length - 1);
+    if (imgIndex3 == thirdImageIndex) {
+        imgIndex3 = randomNumber(0, imgArray.length - 1);
+    }
     while (imgIndex3 == imgIndex1 || imgIndex3 == imgIndex2) {
         imgIndex3 = randomNumber(0, imgArray.length - 1);
     }
@@ -78,21 +89,23 @@ imgRenader();
 function clickHandler(event) {
     if ((event.target.id == 'firstImg' || event.target.id == 'secondImg' || event.target.id == 'thirdImag') && clickes < voteNumber) {
         if (event.target.id == 'firstImg') {
-            productName.allProducts[firstImageIndex].clicks++;
+            productName.allProducts[firstImageIndex].clickNumber++;
             imgRenader();
             clickes++;
         }
         if (event.target.id == 'secondImg') {
-            productName.allProducts[secondImageIndex].clicks++;
+            productName.allProducts[secondImageIndex].clickNumber++;
             imgRenader();
             clickes++;
 
         }
         if (event.target.id == 'thirdImag') {
-            productName.allProducts[thirdImageIndex].clicks++;
+            productName.allProducts[thirdImageIndex].clickNumber++;
             imgRenader();
             clickes++;
         }
+    }else if (clickes==voteNumber){
+        chartRender();
     }
 
 }
@@ -101,7 +114,7 @@ function resultHandler(event) {
     event.preventDefault();
     for (let index = 0; index < productName.allProducts.length; index++) {
         let listItem = document.createElement('li');
-        listItem.textContent = `${productName.allProducts[index].prodName} had  ${productName.allProducts[index].clicks}   votes ,and was seen  ${productName.allProducts[index].views}  times .`;
+        listItem.textContent = `${productName.allProducts[index].prodName} had  ${productName.allProducts[index].clickNumber}   votes ,and was seen  ${productName.allProducts[index].views}  times .`;
         ulList.appendChild(listItem);
     }
     buttonResult.removeEventListener('click', resultHandler)
@@ -109,4 +122,50 @@ function resultHandler(event) {
 //----------------------------------------
 allImages.addEventListener('click', clickHandler);
 buttonResult.addEventListener('click', resultHandler)
+//---------------------create chart render --------------------------
+function chartRender(){
+    let clickTimes=[];
+    let names=[];
+    let viewTime=[];
+
+    for(let i=0;i<productName.allProducts.length;i++){
+        clickTimes.push(productName.allProducts[i].clickNumber);
+        names.push(productName.allProducts[i].prodName);
+        viewTime.push(productName.allProducts[i].views);
+    }
+
+    let ctx = document.getElementById( 'myChart' ).getContext( '2d' );
+  new Chart( ctx, {
+    type: 'radar',
+    data: {
+      labels: names,
+      datasets: [
+        {
+          label: '# of Votes',
+          data: clickTimes,
+          backgroundColor: '#EBA83A',
+          borderColor: '#BB371A',
+          borderWidth: 3
+        },
+        {
+          label: '# of views',
+          data: viewTime,
+          backgroundColor:'#BB371A',
+          borderColor: '#EBA83A',
+          borderWidth: 3
+        }
+      ]
+
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  } );
+}
 
